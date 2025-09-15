@@ -1,0 +1,13 @@
+# Core adaptive AI dependencies
+torch>=2.0.0
+numpy>=1.21.0
+dataclasses-json>=0.5.7
+
+# Development dependencies (optional)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=4.0.0
+# mypy>=0.950
+
+# Embedded dependencies (optional)
+# micropython-lib

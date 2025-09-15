@@ -1,0 +1,36 @@
+{
+  "energy": {
+    "peak_rate_per_kwh": 0.15,
+    "off_peak_rate_per_kwh": 0.08,
+    "off_peak_start_hour": 22,
+    "off_peak_end_hour": 6
+  },
+  "power": {
+    "base_system_watts": 50,
+    "cooling_system_watts": 200,
+    "temp_power_factor": 5,
+    "vibration_power_factor": 0.1
+  },
+  "thresholds": {
+    "temp_warning": 28.0,
+    "vibration_warning": 700,
+    "energy_optimization_temp": 25.0
+  },
+  "gpio_pins": {
+    "temp_sensor_pin": 4,
+    "water_leak_pin": 14,
+    "vibration_pin": 33,
+    "relay_pin": 5,
+    "alert_led_pin": 15
+  },
+  "data_collection": {
+    "sensor_history_size": 10,
+    "sampling_interval_seconds": 10,
+    "log_file": "sensor_data.json"
+  },
+  "location": {
+    "timezone": "UTC",
+    "region": "default",
+    "utility_provider": "generic"
+  }
+}

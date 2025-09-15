@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "author": "ESP32 Adaptive AI Team",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-esp32-devkit-v1",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -48,
+      "left": 230.4,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay1",
+      "top": 67.2,
+      "left": 288,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -86.4,
+      "left": 364.8,
+      "attrs": {
+        "color": "red"
+      }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot1",
+      "top": 134.4,
+      "left": 288,
+      "attrs": {
+        "value": "512"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 201.6,
+      "left": 288,
+      "attrs": {
+        "color": "blue"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -76.8,
+      "left": 297.6,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 211.2,
+      "left": 230.4,
+      "attrs": {
+        "value": "10000"
+      }
+    }
+  ],
+  "connections": [
+    [
+      "esp:TX0",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX0",
+      "$serialMonitor:TX",
+      "",
+      []
+    ],
+    [
+      "esp:3V3",
+      "dht1:VCC",
+      "red",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:GND.1",
+      "dht1:GND",
+      "black",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:D4",
+      "dht1:SDA",
+      "green",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:D5",
+      "relay1:IN",
+      "orange",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:3V3",
+      "relay1:VCC",
+      "red",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:GND.2",
+      "relay1:GND",
+      "black",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:D15",
+      "r1:1",
+      "yellow",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "r1:2",
+      "led1:A",
+      "yellow",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "led1:C",
+      "esp:GND.1",
+      "black",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:3V3",
+      "pot1:VCC",
+      "red",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:GND.1",
+      "pot1:GND",
+      "black",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:A6",
+      "pot1:SIG",
+      "blue",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:3V3",
+      "r2:1",
+      "red",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "r2:2",
+      "btn1:1.l",
+      "green",
+      [
+        "v0"
+      ]
+    ],
+    [
+      "btn1:2.l",
+      "esp:GND.1",
+      "black",
+      [
+        "h0"
+      ]
+    ],
+    [
+      "esp:D14",
+      "btn1:1.l",
+      "purple",
+      [
+        "h0"
+      ]
+    ]
+  ],
+  "dependencies": {}
+}
