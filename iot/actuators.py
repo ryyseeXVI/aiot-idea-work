@@ -1,7 +1,11 @@
 """
 Actuator Control Module
-Supports both real hardware (MicroPython) and simulation mode (CPython)
+Manages relay and buzzer control for ESP32 IoT system
 """
+
+import time
+from typing import Optional
+from config_manager import get_gpio_pins
 
 from config_manager import get_gpio_pins
 
@@ -27,16 +31,31 @@ if MICROPYTHON_MODE:
     relay = Pin(RELAY_PIN, Pin.OUT)
     alert_led = Pin(ALERT_LED_PIN, Pin.OUT)
 
-def set_relay(state):
-    """Set relay state (True=ON, False=OFF)"""
-    global _relay_state
-    _relay_state = bool(state)
+def set_relay(state: bool) -> bool:
+    """
+    Control relay state.
     
-    if MICROPYTHON_MODE:
-        relay.value(1 if state else 0)
+    Args:
+        state: True to turn ON, False to turn OFF
+        
+    Returns:
+        Actual relay state after operation
+    """
+    global relay_state
+    if HARDWARE_AVAILABLE:
+        try:
+            relay.value(1 if state else 0)
+            relay_state = state
+            print(f"Relay {'ON' if state else 'OFF'}")
+            return state
+        except Exception as e:
+            print(f"Relay control error: {e}")
+            return relay_state  # Return current state on error
     else:
-        # Simulation mode - just track state
-        print(f"🔌 RELAY: {'ON' if state else 'OFF'}")
+        # Simulation mode
+        relay_state = state
+        print(f"[SIM] Relay {'ON' if state else 'OFF'}")
+        return state
 
 def set_alert_led(state):
     """Set alert LED state (True=ON, False=OFF)"""
@@ -49,12 +68,13 @@ def set_alert_led(state):
         # Simulation mode - just track state
         print(f"💡 ALERT LED: {'ON' if state else 'OFF'}")
 
-def get_relay_state():
-    """Get current relay state"""
-    if MICROPYTHON_MODE:
-        return relay.value() == 1
-    else:
-        return _relay_state
+def get_relay_state() -> bool:
+    """
+    Get current relay state.
+    
+    Returns:
+        Current relay state (True=ON, False=OFF)
+    """
 
 def get_alert_led_state():
     """Get current alert LED state"""

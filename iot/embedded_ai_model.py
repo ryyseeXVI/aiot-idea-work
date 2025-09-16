@@ -1,5 +1,9 @@
-"""Auto-generated AI model for MicroPython"""
+"""
+Embedded AI Model for ESP32
+Ultra-lightweight quantized neural network for relay prediction
+"""
 import math
+from typing import List, Tuple, Union
 
 # Feature normalization constants
 FEATURE_MEANS = [25.448, 62.336, 600.06, 0.5, 0.52, 0.5]
@@ -34,8 +38,16 @@ def sigmoid(x):
         return 0.0
     return 1.0 / (1.0 + math.exp(-x))
 
-def ai_predict(features):
-    '''Perform AI inference on microcontroller'''
+def ai_predict(features: List[float]) -> Tuple[bool, float]:
+    """
+    Ultra-lightweight AI prediction for relay control.
+    
+    Args:
+        features: [temperature, humidity, vibration, water_leak, time_hour, energy_cost]
+    
+    Returns:
+        Tuple of (should_activate_relay, confidence_score)
+    """
     # Normalize features
     normalized = [(f - m) / s for f, m, s in zip(features, FEATURE_MEANS, FEATURE_STDS)]
     

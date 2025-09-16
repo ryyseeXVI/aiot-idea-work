@@ -1,10 +1,11 @@
 """
 Configuration Management Module
-Handles loading and accessing configuration values from config.json
+Centralized configuration for ESP32 IoT system
 """
 
 import json
 import os
+from typing import Dict, Any, Union, Optional
 
 # Global configuration dictionary
 _config = None

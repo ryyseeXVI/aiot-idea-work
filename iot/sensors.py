@@ -5,6 +5,7 @@ Supports both real hardware (MicroPython) and simulation mode (CPython)
 
 import time
 import random
+from typing import Optional, Union
 from config_manager import get_gpio_pins
 
 # Try to import MicroPython modules
@@ -31,20 +32,23 @@ if MICROPYTHON_MODE:
     vibration_adc.atten(ADC.ATTN_11DB)
     vibration_adc.width(ADC.WIDTH_12BIT)
 
-def read_temperature():
-    """Read temperature sensor"""
-    if MICROPYTHON_MODE:
+def get_temperature() -> float:
+    """
+    Get temperature reading from DHT22 sensor.
+    
+    Returns:
+        Temperature in Celsius (real hardware) or simulated value (testing mode)
+    """
+    if HARDWARE_AVAILABLE:
         try:
             dht_sensor.measure()
-            return dht_sensor.temperature()
+            return float(dht_sensor.temperature())
         except Exception as e:
-            print(f"Error reading temperature: {e}")
-            return None
+            print(f"Temperature sensor error: {e}")
+            return 25.0  # Default fallback temperature
     else:
-        # Simulation: realistic temperature with some variation
-        base_temp = 25.0 + 3 * (time.time() % 3600) / 3600  # Daily cycle
-        noise = random.uniform(-2, 2)
-        return round(base_temp + noise, 1)
+        # Simulation mode - return realistic temperature
+        return 20.0 + random.uniform(-5, 15)
 
 def read_humidity():
     """Read humidity sensor"""
